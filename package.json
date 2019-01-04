@@ -4,13 +4,13 @@
   "description": "A chat application built with node,mongodb,express,socket.io and aws",
   "main": "index.js",
   "engines": {
-    "node":"7.10.1",
-    "npm":"6.2.0"
+    "node": "7.10.1",
+    "npm": "6.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev":"nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "express-promise-router": "^3.0.3",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.0",
+    "forever": "^0.15.3",
     "formidable": "^1.2.1",
     "helmet": "^3.15.0",
     "lodash": "^4.17.11",

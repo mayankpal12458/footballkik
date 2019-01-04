@@ -4,11 +4,6 @@ const multerS3=require('multer-s3');
 var express = require('express');
 
 
-//AWS.config.update({
-  //  accessKeyId:'AKIAIQ6HTOMCQ2GTQ67A',
-    //secretAccessKey:'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',
-    //region:'ap-south-1'
-//});
 
 AWS.config.update({
     accessKeyId:'process.env.AWS_ACESSKEY',

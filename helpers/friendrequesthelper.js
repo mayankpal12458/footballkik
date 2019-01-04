@@ -1,0 +1,138 @@
+module.exports=function(async,Users,Message){
+    return {
+        friendhelper:function(req,res,url){
+        async.parallel([
+            function(callback){
+                if(req.body.receiverName){
+                    Users.update({
+                        'username':req.body.receiverName,
+                        'request.userId':{$ne:req.user._id},
+                        'friendsList.friendId':{$ne:req.user._id}
+                    },{
+                        $push:{request:{
+                            userId:req.user._id,
+                            username:req.user.username
+                        }},
+                        $inc:{totalRequests:1}
+                    },function(err,count){
+                        callback(err,count);
+                    
+                    })
+                }
+            },
+
+            function(callback){
+                if(req.body.receiverName){
+                    Users.update({
+                        'username':req.user.username,
+                        'sentRequest.username':{$ne:req.body.receiverName}
+                    },{
+                        $push:{sentRequest:{
+                            username:req.body.receiverName
+                        }}
+                        },function(err,count){
+                            callback(err,count);
+                    })
+                }
+            }
+        ],function(err,results){
+            res.redirect(url);
+        });
+
+        async.parallel([
+            function(callback){
+                if(req.body.senderId)
+                {
+                    Users.update({
+                        '_id':req.user._id,
+                        'friendsList.friendId':{$ne:req.body.senderId}
+                    },{
+                        $push:{friendsList:{
+                            friendId:req.body.senderId,
+                            friendname:req.body.sendername
+                        }},
+                        $pull:{request:{
+                            userId:req.body.senderId,
+                            username:req.body.sendername
+                        }},
+                        $inc:{totalRequests:-1}
+                    },function(err,count){
+                        callback(err,count);
+                    });
+                }
+            },
+            function(callback){
+                if(req.body.senderId)
+                {
+                    Users.update({
+                        '_id':req.body.senderId,
+                        'friendsList.friendId':{$ne:req.user._id}
+                    },{
+                        $push:{friendsList:{
+                            friendId:req.user._id,
+                            friendname:req.user.username
+                        }},
+                        $pull:{sentRequest:{
+                            username:req.user.username
+                        }}
+                    },function(err,count){
+                        callback(err,count);
+                    });
+                }
+            },
+            function(callback){
+                if(req.body.user_Id)
+                {
+                    Users.update({
+                        '_id':req.user._id,
+                        'request.userId':{$eq:req.body.user_Id}
+                    },{
+                        
+                        $pull:{request:{
+                            userId:req.body.user_Id,
+                            
+                        }},
+                        $inc:{totalRequests:-1}
+                    },function(err,count){
+                        callback(err,count);
+                    });
+                }
+            },
+            function(callback){
+                if(req.body.user_Id)
+                {
+                    Users.update({
+                        '_id':req.body.user_Id,
+                        'sentRequest.username':{$eq:req.user.username}
+                    },{
+                        
+                        $pull:{sentRequest:{
+                            username:req.user.username,
+                            
+                        }}
+                    },function(err,count){
+                        callback(err,count);
+                    });
+                }
+            },
+            function(callback){
+                if(req.body.chatId){
+                    Message.update({
+                        '_id':req.body.chatId
+                    },
+                    {
+                        "isRead":true
+                    },function(err,done){
+                        callback(err,done);
+                    })
+                }
+            }
+        ],function(err,results){
+            res.redirect(url);
+        });
+
+        
+    }
+    
+}
+}

@@ -1,1 +1,1 @@
-Footballkik is a private/group chat application developed using  Node.js and made by keeping security of chats in mind.
+This is a group/private chat app majorly created using Node.js and a little of React.js. Login with Google,Facebook and local is created. Many to many as well as one one chat app is created. Socket.io is used to create rooms.

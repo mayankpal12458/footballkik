@@ -6,9 +6,9 @@ var express = require('express');
 
 
 AWS.config.update({
-    accessKeyId:'process.env.AWS_ACESSKEY',
-    secretAccessKey:'process.env.SECRET_ACCESSKEY',
-    region:'process.env.AWS_REGION'
+    accessKeyId:'AKIAJ6TCDDAYDWE6SNLA',
+    secretAccessKey:'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',
+    region:'ap-south-1'
 });
 
 var app = express();

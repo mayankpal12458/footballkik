@@ -14,12 +14,11 @@ passport.deserializeUser(function(id,done){
     });
 });
 
-//clientID:secret.google.clientID,
-    //clientSecret:secret.google.clientSecret,
+
 
 passport.use(new googlestrategy({
-    clientID:process.env.GOOGLE_CLIENTID,
-    clientSecret:process.env.GOOGLE_CLIENT_SECRET,
+    clientID:secret.google.clientID,
+    clientSecret:secret.google.clientSecret,
     callbackURL:'http://localhost:3000/auth/google/callback',
     passReqToCallback:true
 

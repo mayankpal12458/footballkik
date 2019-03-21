@@ -22,8 +22,7 @@ const helmet=require('helmet');
 container.resolve(function(users,_,admin,home,group,results,privatechat,news,profile,interest){
     mongoose.Promise=global.Promise;
     
-    //mongoose.connect('mongodb://dbuserfootball:mayankpal19@ds149344.mlab.com:49344/footballkik',{ useNewUrlParser: true });
-    mongoose.connect(process.env.MONGODB_URI,{ useNewUrlParser: true });
+    mongoose.connect('mongodb://localhost/footballkik',{ useNewUrlParser: true });
 
     const app=setupexpress();
 
@@ -83,7 +82,7 @@ container.resolve(function(users,_,admin,home,group,results,privatechat,news,pro
 
             app.use(expressvalidator());
             app.use(session({
-                secret:'process.env.SECRET_KEY',
+                secret:'this is secret key',
                 resave:true,
                 saveUninitialized:false,
                 store:new mongostore({mongooseConnection:mongoose.connection})
